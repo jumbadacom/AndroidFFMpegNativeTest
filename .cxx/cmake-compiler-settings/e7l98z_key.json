@@ -1,0 +1,17 @@
+{
+  "gradlePluginVersion": "3.4.0-alpha06",
+  "ndkInstallationFolder": {
+    "path": "/Users/jumbadacom/Library/Android/sdk/ndk-bundle"
+  },
+  "ndkSourceProperties": {
+    "map": {
+      "Pkg.Desc": "Android NDK",
+      "Pkg.Revision": "19.0.5106443-beta1"
+    }
+  },
+  "args": [
+    "-DANDROID_ABI\u003dx86",
+    "-DANDROID_PLATFORM\u003dandroid-19",
+    "-DCMAKE_CXX_FLAGS\u003d-std\u003dc++11 -frtti -fexceptions"
+  ]
+}

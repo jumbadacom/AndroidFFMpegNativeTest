@@ -1,0 +1,72 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.test.nativetest"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        externalNativeBuild {
+            cmake {
+                cppFlags "-std=c++11 -frtti -fexceptions"
+                //arguments "-DANDROID_STL=c++_shared"
+            }
+        }
+        /*ndk {
+            abiFilters  "armeabi-v7a"
+        }*/
+
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            multiDexEnabled = true
+
+        }
+    }
+    //
+    sourceSets {
+        main {
+            // let gradle pack the shared library into apk
+            jniLibs.srcDirs = ['../libtest/libs/ffmpeg/lib']
+            // jniLibs.srcDirs = ['../libtest/libs/ffmpeg/lib', '../libtest/libs/rubberband/lib']
+
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+        }
+    }
+    flavorDimensions 'abc'
+    productFlavors {
+        product {
+            dimension = 'abc'
+            multiDexEnabled = true
+
+        }
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation('com.appyvet:materialrangebar:1.4.4') {
+        exclude module: 'support-compat'
+    }
+    implementation project(':libtest')
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.google.android.gms:play-services-plus:16.0.0'
+}
